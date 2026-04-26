@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<NoWarn>$(NoWarn);NU1605;CS0200;CS0430;CS0234;CS0117;CS0246</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.7" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.7" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+	</ItemGroup>
+
+</Project>
