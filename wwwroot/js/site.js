@@ -2,27 +2,27 @@
 
 function saveEvent(id) {
 
-  if (savedEvents.includes(id)) {
-    alert("Already saved!");
-    return;
-  }
+    if (savedEvents.includes(id)) {
+        alert("Already saved!");
+        return;
+    }
 
-  savedEvents.push(id);
-  localStorage.setItem("savedEvents", JSON.stringify(savedEvents));
+    savedEvents.push(id);
+    localStorage.setItem("savedEvents", JSON.stringify(savedEvents));
 
-  renderSaved();
-  alert("Saved successfully!");
+    renderSaved();
+    alert("Saved successfully!");
 }
 
 function renderSaved() {
-  const savedContainer = document.getElementById("saved");
+    const savedContainer = document.getElementById("saved");
 
-  if (!savedContainer) return;
+    if (!savedContainer) return;
 
-  savedContainer.innerHTML = "";
+    savedContainer.innerHTML = "";
 
-  savedEvents.forEach(id => {
-    savedContainer.innerHTML += `
+    savedEvents.forEach(id => {
+        savedContainer.innerHTML += `
       <div class="card p-3 mb-2">
         <strong>Event #${id}</strong>
         <button class="btn btn-danger mt-2"
@@ -31,14 +31,14 @@ function renderSaved() {
         </button>
       </div>
     `;
-  });
+    });
 }
 
 function removeEvent(id) {
-  savedEvents = savedEvents.filter(e => e !== id);
-  localStorage.setItem("savedEvents", JSON.stringify(savedEvents));
+    savedEvents = savedEvents.filter(e => e !== id);
+    localStorage.setItem("savedEvents", JSON.stringify(savedEvents));
 
-  renderSaved();
+    renderSaved();
 }
 
 renderSaved();
