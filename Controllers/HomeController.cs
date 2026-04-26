@@ -13,25 +13,38 @@ namespace UniClubSistemi.Controllers
             _logger = logger;
         }
 
-        // Ana Sayfa
+        // 1. Ana Sayfa: Herkesin görebildiði ilk karþýlama ekraný
         public IActionResult Index()
         {
             return View();
         }
 
-        // Etkinlikleri Listelediðimiz Sayfa
+        // 2. Etkinlik Takvimi: Paylaþýlan tüm etkinliklerin listelendiði sayfa
         public IActionResult Etkinlikler()
         {
             return View();
         }
 
-        // Kulüplerin Listelendiði Sayfa
+        // 3. Kulüpler Rehberi: Üniversite bünyesindeki kulüplerin tanýtýmý
         public IActionResult Kulüpler()
         {
             return View();
         }
 
-        // Yeni Etkinlik Ekleme Formunun Olduðu Sayfa
+        // 4. Yetkilendirme - Giriþ: Kulüp baþkanlarýnýn yönetim paneline giriþi
+        public IActionResult Giriþ()
+        {
+            return View();
+        }
+
+        // 5. Yetkilendirme - Kayýt: Yeni kulüplerin sisteme dahil olma talebi
+        public IActionResult KayýtOl()
+        {
+            return View();
+        }
+
+        // 6. Etkinlik Yönetimi: Sadece giriþ yapmýþ yetkililerin göreceði form
+        // (Þu an tasarým aþamasýnda olduðu için kapýsý herkese açýk)
         public IActionResult EtkinlikEkle()
         {
             return View();

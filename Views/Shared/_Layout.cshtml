@@ -31,8 +31,19 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark fw-semibold" asp-controller="Home" asp-action="Kulüpler">Kulüpler</a>
                         </li>
-                        <li class="nav-item ms-auto">
-                            <a class="btn btn-primary rounded-pill px-4" asp-controller="Home" asp-action="EtkinlikEkle">+ Etkinlik Paylaş</a>
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item me-3">
+                            <a class="nav-link text-muted small" asp-controller="Home" asp-action="KayıtOl">Kayıt Ol</a>
+                        </li>
+                        <li class="nav-item me-2">
+                            <a class="nav-link text-primary fw-bold border-end pe-3" asp-controller="Home" asp-action="Giriş">Giriş Yap</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary rounded-pill px-4 shadow-sm ms-2" asp-controller="Home" asp-action="Giriş">
+                                <i class="bi bi-plus-circle"></i> + Etkinlik Paylaş
+                            </a>
                         </li>
                     </ul>
                 </div>
