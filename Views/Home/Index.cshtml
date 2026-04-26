@@ -2,48 +2,69 @@
     ViewData["Title"] = "Ana Sayfa";
 }
 
-<div class="container mt-5">
-    <h3 class="mb-4 fw-bold border-start border-primary border-4 ps-3">Öne Çıkan Etkinlikler</h3>
+<div class="py-5 mb-5 shadow-sm rounded-5" style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); margin-top: 20px;">
+    <div class="container text-center py-5">
+        <h1 class="display-3 fw-bold mb-3 text-white">Kampüs Etkinliklerini Keşfet</h1>
+        <p class="lead mb-4 text-white-50">Kulüplerin dünyasına adım at, hobilerini paylaş, yeni insanlarla tanış!</p>
+
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <form class="input-group input-group-lg shadow-lg rounded-pill overflow-hidden bg-white p-1">
+                    <input type="text" class="form-control border-0 px-4" placeholder="Hangi etkinliği arıyorsun?" aria-label="Arama">
+                    <button class="btn btn-warning rounded-pill px-4 fw-bold text-dark border-0" type="button">
+                        🔍 Keşfet
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="fw-bold border-start border-warning border-4 ps-3 mb-0 text-white">Öne Çıkan Etkinlikler</h3>
+        <a asp-action="Etkinlikler" class="text-warning text-decoration-none fw-semibold">Tümünü Gör →</a>
+    </div>
 
     <div class="row">
         <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm border-0 transition-hover">
-                <div class="card-body text-center">
+            <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+                <div class="card-body text-center p-4">
                     <div class="display-6 mb-2">🤖</div>
                     <span class="badge bg-primary-subtle text-primary mb-2">Yazılım</span>
                     <h5 class="card-title fw-bold">Yapay Zeka Atölyesi</h5>
                     <p class="card-text text-muted small">Python ile temel makine öğrenmesi projeleri geliştiriyoruz. Başlangıç seviyesi için uygundur.</p>
                 </div>
-                <div class="card-footer bg-transparent border-0 pb-3">
-                    <button class="btn btn-outline-primary w-100 rounded-pill">Detayları Gör</button>
+                <div class="card-footer bg-transparent border-0 pb-4 px-4">
+                    <button class="btn btn-outline-primary w-100 rounded-pill fw-bold">Detayları Gör</button>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-body text-center">
+            <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+                <div class="card-body text-center p-4">
                     <div class="display-6 mb-2">🎭</div>
                     <span class="badge bg-danger-subtle text-danger mb-2">Tiyatro</span>
                     <h5 class="card-title fw-bold">Sahne Tozu: Drama</h5>
                     <p class="card-text text-muted small">Kulübümüzün bu yılki büyük oyunu için seçmeler başlıyor. Yeteneğine güveniyorsan gel!</p>
                 </div>
-                <div class="card-footer bg-transparent border-0 pb-3">
-                    <button class="btn btn-outline-danger w-100 rounded-pill">Detayları Gör</button>
+                <div class="card-footer bg-transparent border-0 pb-4 px-4">
+                    <button class="btn btn-outline-danger w-100 rounded-pill fw-bold">Detayları Gör</button>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm border-0">
-                <div class="card-body text-center">
+            <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+                <div class="card-body text-center p-4">
                     <div class="display-6 mb-2">🏔️</div>
                     <span class="badge bg-success-subtle text-success mb-2">Doğa</span>
-                    <h5 class="card-title fw-bold">Palandöken Zirve Yürüyüşü</h5>
+                    <h5 class="card-title fw-bold">Palandöken Yürüyüşü</h5>
                     <p class="card-text text-muted small">Hafta sonu temiz hava ve eşsiz manzara eşliğinde bir doğa yürüyüşüne ne dersin?</p>
                 </div>
-                <div class="card-footer bg-transparent border-0 pb-3">
-                    <button class="btn btn-outline-success w-100 rounded-pill">Detayları Gör</button>
+                <div class="card-footer bg-transparent border-0 pb-4 px-4">
+                    <button class="btn btn-outline-success w-100 rounded-pill fw-bold">Detayları Gör</button>
                 </div>
             </div>
         </div>

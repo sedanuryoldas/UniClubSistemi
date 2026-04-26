@@ -2,25 +2,41 @@
     ViewData["Title"] = "Tüm Etkinlikler";
 }
 
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-5">
-        <h2 class="fw-bold text-dark border-start border-primary border-5 ps-3">🗓️ Etkinlik Takvimi</h2>
-        <a asp-action="EtkinlikEkle" class="btn btn-primary">+ Yeni Ekle</a>
+<div class="container mt-4 pb-5">
+    <div class="d-flex justify-content-between align-items-center mb-5 p-4 rounded-5 shadow-lg"
+         style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1);">
+
+        <h2 class="fw-bold text-white border-start border-warning border-5 ps-3 mb-0">
+            🗓️ Etkinlik Takvimi
+        </h2>
+
+        <a asp-action="EtkinlikEkle" class="btn btn-warning rounded-pill px-4 fw-bold text-dark shadow-sm">
+            <i class="bi bi-plus-circle-fill"></i> Yeni Etkinlik Ekle
+        </a>
     </div>
 
     <div class="row">
-        @for (int i = 1; i <= 3; i++)
+        @for (int i = 1; i <= 6; i++) // Örnek olması için 6'ya çıkardım
         {
             <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body">
-                        <div class="badge bg-primary-subtle text-primary mb-2">Gelecek Etkinlik</div>
-                        <h5 class="card-title fw-bold">Yazılım Kampı #@i</h5>
-                        <p class="text-muted small mb-3"><i class="bi bi-geo-alt"></i> Mühendislik Fakültesi</p>
-                        <p class="card-text">Dönemin en büyük yazılım etkinliğine hazır mısın? Sektörden uzmanlar geliyor.</p>
+                <div class="card h-100 shadow-lg border-0 rounded-4 overflow-hidden">
+                    <div class="card-body p-4">
+                        <div class="badge bg-primary-subtle text-primary mb-3 px-3 py-2 rounded-pill">Gelecek Etkinlik</div>
+                        <h5 class="card-title fw-bold text-dark mb-3">Yazılım Kampı #@i</h5>
+
+                        <div class="d-flex align-items-center text-muted small mb-3">
+                            <i class="bi bi-geo-alt-fill text-danger me-2"></i>
+                            <span>Mühendislik Fakültesi Konferans Salonu</span>
+                        </div>
+
+                        <p class="card-text text-secondary mb-0">
+                            Dönemin en büyük yazılım etkinliğine hazır mısın? Sektörden uzmanlar geliyor ve deneyimlerini paylaşıyor.
+                        </p>
                     </div>
-                    <div class="card-footer bg-transparent border-0 pb-3">
-                        <button class="btn btn-outline-primary w-100 rounded-pill">Detayları Gör</button>
+                    <div class="card-footer bg-transparent border-0 pb-4 px-4">
+                        <button class="btn btn-outline-primary w-100 rounded-pill fw-bold">
+                            Detayları Gör
+                        </button>
                     </div>
                 </div>
             </div>
