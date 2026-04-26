@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Tüm Etkinlikler";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h2 class="fw-bold text-dark border-start border-primary border-5 ps-3">🗓️ Etkinlik Takvimi</h2>
+        <a asp-action="EtkinlikEkle" class="btn btn-primary">+ Yeni Ekle</a>
+    </div>
+
+    <div class="row">
+        @for (int i = 1; i <= 3; i++)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <div class="badge bg-primary-subtle text-primary mb-2">Gelecek Etkinlik</div>
+                        <h5 class="card-title fw-bold">Yazılım Kampı #@i</h5>
+                        <p class="text-muted small mb-3"><i class="bi bi-geo-alt"></i> Mühendislik Fakültesi</p>
+                        <p class="card-text">Dönemin en büyük yazılım etkinliğine hazır mısın? Sektörden uzmanlar geliyor.</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 pb-3">
+                        <button class="btn btn-outline-primary w-100 rounded-pill">Detayları Gör</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

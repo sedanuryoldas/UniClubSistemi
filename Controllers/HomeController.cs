@@ -13,7 +13,26 @@ namespace UniClubSistemi.Controllers
             _logger = logger;
         }
 
+        // Ana Sayfa
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        // Etkinlikleri Listelediðimiz Sayfa
+        public IActionResult Etkinlikler()
+        {
+            return View();
+        }
+
+        // Kulüplerin Listelendiði Sayfa
+        public IActionResult Kulüpler()
+        {
+            return View();
+        }
+
+        // Yeni Etkinlik Ekleme Formunun Olduðu Sayfa
+        public IActionResult EtkinlikEkle()
         {
             return View();
         }
