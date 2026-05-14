@@ -1,4 +1,5 @@
-﻿@{
+﻿@model UniClubSistemi.Models.Etkinlik
+@{
     ViewData["Title"] = "Yeni Etkinlik Paylaş";
 }
 
@@ -11,41 +12,47 @@
                     <p class="mb-0 opacity-75">Kampüsteki herkese kulübünü duyur!</p>
                 </div>
                 <div class="card-body p-5">
-                    <form>
+
+                    <form asp-action="EtkinlikEkle" method="post">
                         <div class="mb-4">
-                            <label class="form-label fw-bold">Etkinlik Başlığı</label>
-                            <input type="text" class="form-control form-control-lg border-2" placeholder="Örn: Kariyer Zirvesi 2026">
+                            <label asp-for="Ad" class="form-label fw-bold">Etkinlik Başlığı</label>
+                            <input asp-for="Ad" type="text" class="form-control form-control-lg border-2" placeholder="Örn: 🚀 Kariyer Zirvesi 2026">
                         </div>
 
                         <div class="row mb-4">
                             <div class="col-md-6">
-                                <label class="form-label fw-bold">Etkinlik Tarihi</label>
-                                <input type="date" class="form-control border-2">
+                                <label asp-for="Tarih" class="form-label fw-bold">Etkinlik Tarihi</label>
+                                <input asp-for="Tarih" type="datetime-local" class="form-control border-2">
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label fw-bold">Konum / Yer</label>
-                                <input type="text" class="form-control border-2" placeholder="Örn: Kültür Merkezi B Salonu">
+                                <label asp-for="Yer" class="form-label fw-bold">Konum / Yer</label>
+                                <input asp-for="Yer" type="text" class="form-control border-2" placeholder="Örn: Kültür Merkezi B Salonu">
                             </div>
                         </div>
 
                         <div class="mb-4">
                             <label class="form-label fw-bold">Hangi Kulüp Düzenliyor?</label>
-                            <select class="form-select border-2">
-                                <option selected disabled>Kulüp Seçin</option>
-                                <option>Yazılım Kulübü</option>
-                                <option>Tiyatro Kulübü</option>
-                                <option>Gezi ve Doğa Sporları</option>
-                                <option>Müzik Kulübü</option>
+                            <select name="KulupAdi" class="form-select border-2" required>
+                                <option value="" selected disabled>Lütfen bir kulüp seçin...</option>
+
+                                @if (ViewBag.Kulupler is List<string> kulupler)
+                                {
+                                    @foreach (var kulup in kulupler)
+                                    {
+                                        <option value="@kulup">@kulup</option>
+                                    }
+                                }
                             </select>
+                            <small class="text-muted">Sadece sistemde kayıtlı kulüpler görünür.</small>
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label fw-bold">Etkinlik Detayları</label>
-                            <textarea class="form-control border-2" rows="5" placeholder="Etkinliğin içeriği, katılım şartları vb. bilgiler..."></textarea>
+                            <label asp-for="Aciklama" class="form-label fw-bold">Etkinlik Detayları</label>
+                            <textarea asp-for="Aciklama" class="form-control border-2" rows="5" placeholder="Etkinliğin içeriği, katılım şartları vb. bilgiler..."></textarea>
                         </div>
 
                         <div class="d-grid gap-2">
-                            <button class="btn btn-primary btn-lg fw-bold shadow-sm py-3" type="button">🚀 Etkinliği Yayına Al</button>
+                            <button class="btn btn-primary btn-lg fw-bold shadow-sm py-3" type="submit">🚀 Etkinliği Yayına Al</button>
                             <a asp-action="Index" class="btn btn-link text-muted text-decoration-none">Vazgeç ve Ana Sayfaya Dön</a>
                         </div>
                     </form>

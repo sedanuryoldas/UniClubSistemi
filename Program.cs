@@ -1,22 +1,43 @@
+﻿using Google.Cloud.Firestore;
+using UniClubSistemi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//  FİREBASE BAĞLANTISI 
+// 1. Anahtar dosyamızın yolunu gösteriyoruz
+string filepath = "firebase-key.json";
+Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", filepath);
+
+// 2. Firebase Proje ID'mizi yazıyoruz
+string projectId = "unietkinliksistemi";
+builder.Services.AddSingleton<FirestoreDb>(FirestoreDb.Create(projectId));
+
+// Servisleri konteynere ekliyoruz
 builder.Services.AddControllersWithViews();
+//  1. KİMLİK DOĞRULAMA (GİRİŞ YAPMA) AYARLARI 
+builder.Services.AddAuthentication("Cookies")
+    .AddCookie("Cookies", options =>
+    {
+        // Giriş yapmamış biri yasaklı sayfaya girmeye çalışırsa onu buraya yönlendir:
+        options.LoginPath = "/Home/Giriş";
+    });
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// HTTP istek işlem hattını yapılandırıyoruz
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+//  2. KAPI GÜVENLİĞİNİ AKTİF ET 
+app.UseAuthentication(); // Önce kimlik sor 
+app.UseAuthorization();  // Sonra yetkiye bak 
 
 app.UseAuthorization();
 

@@ -1,0 +1,53 @@
+﻿@model UniClubSistemi.Models.Kulup
+@{
+    ViewData["Title"] = "Yeni Kulüp Ekle";
+}
+
+<div class="container mt-5 pb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-4 p-4">
+                <h3 class="fw-bold text-danger border-bottom pb-3 mb-4">
+                    <i class="bi bi-shield-lock-fill"></i> Yönetim Paneli - Yeni Kulüp
+                </h3>
+                <form asp-action="KulupEkle" method="post">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Kulüp Adı</label>
+                        <input asp-for="Ad" class="form-control rounded-3" placeholder="Örn: Developers Club" required />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Başkanın Adı</label>
+                            <input asp-for="Baskan" class="form-control rounded-3" placeholder="Örn: Seda Nur Yoldaş" required />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Başkanın E-Posta Adresi</label>
+                            <input asp-for="BaskanEmail" type="email" class="form-control rounded-3" placeholder="baskan@uniclub.com" required />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Üye Sayısı</label>
+                            <input asp-for="UyeSayisi" type="number" class="form-control rounded-3" placeholder="Örn: 150" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Kuruluş Yılı</label>
+                            <input asp-for="KurulusYili" class="form-control rounded-3" placeholder="Örn: 2021" />
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Kulüp Açıklaması</label>
+                        <textarea asp-for="Aciklama" class="form-control rounded-3" rows="4" placeholder="Kulübün vizyonu ve amacı..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-danger w-100 rounded-pill fw-bold py-2 shadow-sm">
+                        🚀 Kulübü Sisteme Kaydet
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

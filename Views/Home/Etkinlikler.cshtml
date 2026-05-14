@@ -1,56 +1,156 @@
-﻿@{
-    ViewData["Title"] = "Tüm Etkinlikler";
+﻿@model List<UniClubSistemi.Models.Etkinlik>
+@{
+    ViewData["Title"] = "Etkinlik Takvimi";
+    var favoriler = ViewBag.Favorilenenler as List<string> ?? new List<string>();
 }
 
-<div class="container mt-4 pb-5">
-    <div class="d-flex justify-content-between align-items-center mb-5 p-4 rounded-5 shadow-lg"
-         style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1);">
+<div class="container mt-4">
+    //Etkinlik Takvimi Başlığı
+    <div class="d-flex justify-content-between align-items-center mb-4 p-3 rounded-4 shadow-sm" style="background-color: rgba(0,0,0,0.2);">
+        <h3 class="text-white fw-bold mb-0 border-start border-4 border-warning ps-3">
+            📅 Etkinlik Takvimi
+        </h3>
 
-        <h2 class="fw-bold text-white border-start border-warning border-5 ps-3 mb-0">
-            🗓️ Etkinlik Takvimi
-        </h2>
-
-        <a asp-action="EtkinlikEkle" class="btn btn-warning rounded-pill px-4 fw-bold text-dark shadow-sm">
-            <i class="bi bi-plus-circle-fill"></i> Yeni Etkinlik Ekle
-        </a>
+        //SADECE ADMİN VE BAŞKANLAR İÇİN GÖRÜNÜR YAPTIK 
+        @if (User.IsInRole("Admin") || User.IsInRole("Baskan"))
+        {
+            <a asp-action="EtkinlikEkle" class="btn btn-warning fw-bold rounded-pill shadow-sm px-4">
+                <i class="bi bi-plus-circle"></i> Yeni Etkinlik Ekle
+            </a>
+        }
     </div>
 
     <div class="row">
-        @for (int i = 1; i <= 4; i++) // Örnek olması için 4e çıkardım
+        // Eğer veritabanında etkinlik yoksa mesaj verelim 
+        @if (Model == null || Model.Count == 0)
         {
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-lg border-0 rounded-4 overflow-hidden">
-                    <div class="card-body p-4">
-                        <div class="badge bg-primary-subtle text-primary mb-3 px-3 py-2 rounded-pill">Gelecek Etkinlik</div>
-                        <h5 class="card-title fw-bold text-dark mb-3">Yazılım Kampı #@i</h5>
-
-                        <div class="d-flex align-items-center text-muted small mb-3">
-                            <i class="bi bi-geo-alt-fill text-danger me-2"></i>
-                            <span>Mühendislik Fakültesi Konferans Salonu</span>
-                        </div>
-
-                        <p class="card-text text-secondary mb-0">
-                            Dönemin en büyük yazılım etkinliğine hazır mısın? Sektörden uzmanlar geliyor ve deneyimlerini paylaşıyor.
-                        </p>
-                    </div>
-                    <div class="card-footer bg-transparent border-0 pb-4 px-4">
-                        <button class="btn btn-outline-primary w-100 rounded-pill fw-bold">
-                            Detayları Gör
-                        </button>
-                        <div class="card-footer bg-transparent border-0 pb-3">
-                        <button class="btn btn-outline-primary w-100 rounded-pill mb-2">
-                            Detayları Gör
-                        </button>
-                    
-                        <button class="btn btn-success w-100 rounded-pill"
-                                onclick="saveEvent(@i)">
-                            Save ❤️
-                        </button>
-                    </div>
-                </div>
+            <div class="alert alert-light text-center rounded-4 opacity-75">
+                Henüz planlanmış bir etkinlik bulunmuyor. İlk etkinliği sen ekle!
             </div>
         }
+        else
+        {
+            //Firebase'deki her etkinlik için kart oluşturalım
+            @foreach (var item in Model)
+            {
+                bool isGecmis = item.Tarih < DateTime.Now;
+
+                <div class="col-md-4 mb-4">
+                    // Geçmiş etkinlikse kartı biraz soluklaştır
+                    <div class="card shadow-sm border-0 rounded-4 h-100 @(isGecmis ? "bg-light opacity-75" : "")">
+                        <div class="card-body d-flex flex-column">
+                            <p class="@(isGecmis ? "text-secondary" : "text-primary") small fw-bold mb-1">
+                                @(isGecmis ? "⏳ Geçmiş Etkinlik" : "🚀 Gelecek Etkinlik")
+                            </p>
+
+                            <h5 class="card-title fw-bold @(isGecmis ? "text-muted" : "")">@item.Ad</h5>
+                            <p class="text-muted small"><i class="bi bi-geo-alt-fill text-danger"></i> @(string.IsNullOrEmpty(item.Yer) ? "Belirtilmedi" : item.Yer)</p>
+
+                            <p class="card-text text-muted flex-grow-1" style="font-size:0.9rem;">
+                                @(item.Aciklama != null && item.Aciklama.Length > 60 ? item.Aciklama.Substring(0, 60) + "..." : item.Aciklama)
+                            </p>
+
+                            <p class="@(isGecmis ? "text-danger" : "text-dark") fw-bold small mb-3">📅 Tarih: @item.Tarih.ToString("dd.MM.yyyy - HH:mm")</p>
+
+                            // Detayları gör butonu
+                            <button class="btn @(isGecmis ? "btn-outline-secondary" : "btn-outline-primary") w-100 rounded-pill mb-2 mt-auto"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#etkinlikModal"
+                                    data-ad="@item.Ad"
+                                    data-aciklama="@(item.Aciklama ?? "")"
+                                    data-yer="@(item.Yer ?? "Belirtilmedi")"
+                                    data-tarih='@item.Tarih.ToString("dd.MM.yyyy - HH:mm")'>
+                                Detayları Gör
+                            </button>
+
+                            @if (isGecmis)
+                            {
+                                <button type="button" class="btn btn-secondary w-100 rounded-pill shadow-sm fw-bold mt-2" disabled>
+                                    Etkinlik Sona Erdi 🏁
+                                </button>
+                            }
+                            else
+                            {
+                                <form asp-controller="Home" asp-action="FavoriToggle" method="post" class="mt-2">
+                                    <input type="hidden" name="etkinlikId" value="@item.Id" />
+
+                                    @if (favoriler.Contains(item.Id ?? ""))
+                                    {
+                                        <button type="submit" class="btn btn-outline-danger w-100 rounded-pill shadow-sm fw-bold">
+                                            Favoriden Çıkar 💔
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-success w-100 rounded-pill shadow-sm fw-bold">
+                                            Favoriye Al ⭐
+                                        </button>
+                                    }
+                                </form>
+                            }
+
+                            //SİLME BUTONU (Sadece Admin Görebilir, Geçmiş de olsa silebilir) 
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <div class="mt-2 text-center border-top pt-2">
+                                    <form asp-action="EtkinlikSil" method="post" onsubmit="return confirm('Bu etkinliği takvimden silmek istediğine emin misin?');">
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <button type="submit" class="btn btn-sm btn-link text-danger fw-bold text-decoration-none">
+                                            <i class="bi bi-calendar-x-fill"></i> Etkinliği Kaldır
+                                        </button>
+                                    </form>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
+        }
     </div>
-<h3 class="mt-5">Saved Events</h3>
-<div id="saved" class="mt-3"></div>
+</div>
+
+<div class="modal fade" id="etkinlikModal" tabindex="-1" aria-labelledby="etkinlikModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow-lg">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold text-primary fs-4" id="modalAd">Etkinlik Adı</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pt-2">
+                <p class="text-muted small mb-3 border-bottom pb-2">
+                    <i class="bi bi-geo-alt-fill text-danger"></i> <span id="modalYer" class="me-2 fw-semibold">Yer</span>
+                    <i class="bi bi-calendar-event-fill text-warning"></i> <span id="modalTarih" class="fw-semibold">Tarih</span>
+                </p>
+                <div class="p-3 bg-light rounded-3 border">
+                    <p class="mb-0 text-dark" id="modalAciklama" style="white-space: pre-wrap; line-height:1.6;">Açıklama burada olacak...</p>
+                </div>
+            </div>
+            <div class="modal-footer border-0 pt-0">
+                <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var etkinlikModal = document.getElementById('etkinlikModal');
+        etkinlikModal.addEventListener('show.bs.modal', function (event) {
+            // Tıklanan butonu yakala
+            var button = event.relatedTarget;
+
+            // Butonun içine gizlediğimiz verileri al
+            var ad = button.getAttribute('data-ad');
+            var aciklama = button.getAttribute('data-aciklama');
+            var yer = button.getAttribute('data-yer');
+            var tarih = button.getAttribute('data-tarih');
+
+            // Popup'ın içindeki yerlere bu verileri yazdır
+            document.getElementById('modalAd').textContent = ad;
+            document.getElementById('modalAciklama').textContent = aciklama ? aciklama : "Bu etkinlik için detaylı açıklama girilmemiştir.";
+            document.getElementById('modalYer').textContent = yer;
+            document.getElementById('modalTarih').textContent = tarih;
+        });
+    </script>
 }
