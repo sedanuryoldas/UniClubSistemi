@@ -79,18 +79,7 @@ UniClub platformunu standart bir kayıt/listeleme sisteminden ayıran iki temel 
 
 ---
 
-## 7. Yapay Zeka (AI) Kullanım Beyanı
-
-Bu projede yapay zeka (LLM tabanlı asistanlar), projeyi doğrudan yazdıran bir araç olarak değil; kodlama sürecini hızlandıran bir "pair-programmer" (eşli programcı) ve hata ayıklama (debugging) asistanı olarak konumlandırılmıştır.
-
-* **Doğrudan Alınan Çıktılar:** Arayüz tasarımındaki bazı spesifik CSS gölgelendirme (`box-shadow`) ayarları, gradient arka plan renk kodları ve Bootstrap 5 grid sisteminin HTML iskeletleri (kart yapıları, modal pencereler) yapay zekadan optimize edilerek alınmıştır. Ayrıca gözden kaçan noktalama işareti ve yazım hataları (örneğin C#'taki ternary operatör kullanımındaki `CS1003` hataları) yapay zeka yardımıyla hızlıca debug edilmiştir.
-* **Grup Tarafından Geliştirilen Özgün Bölümler:** Projenin genel yazılım mimarisi, NoSQL şemasına uygun veritabanı koleksiyon yapısının tasarlanması, Firebase'in native olarak ASP.NET Core MVC sistemine entegrasyonu, Controller (`HomeController`) içindeki veri çekme/gönderme mantığı, dinamik arama filtrelemesi ve yetkilendirme (Admin/User rolleri) algoritmaları tamamen grubumuz tarafından tasarlanmış ve kodlanmıştır.
-
-> **Taahhüt:** Yapay zeka tarafından üretilen hiçbir kod öbeği, mantığı tamamen anlaşılmadan ve projenin mimarisine uygun hale getirilmeden sisteme dahil edilmemiştir. Sunum sırasında arka plandaki tüm C# ve veritabanı süreçleri tarafımızca savunulabilecek derinliktedir.
-
----
-
-## 8. Grup Üyelerinin Katkıları ve Görev Dağılımı
+## 7. Grup Üyelerinin Katkıları ve Görev Dağılımı
 
 Projemiz, ekip içerisindeki her bir üyenin kendi uzmanlık alanına göre teknik liderlik, veritabanı yönetimi ve kalite kontrol sorumluluklarını üstlenmesiyle başarılı bir şekilde tamamlanmıştır.
 
